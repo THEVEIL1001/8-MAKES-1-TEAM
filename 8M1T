@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ORDO OCTO | 제8항해 교단</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Noto+Serif+KR:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            obsidian: '#08080a',
+            charcoal: '#111115',
+            gold: '#c5a059',
+            goldLight: '#e5c580',
+            crimson: '#7a1c1c',
+            crimsonGlow: '#b91c1c'
+          },
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            serifKr: ['Noto Serif KR', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #08080a;
+      color: #e4e4e7;
+      font-family: 'Noto Serif KR', serif;
+      overflow-x: hidden;
+    }
+
+    /* 미세한 노이즈 및 성소 배경 효과 */
+    .sacred-bg {
+      background: radial-gradient(circle at 50% 25%, rgba(122, 28, 28, 0.16) 0%, rgba(197, 160, 89, 0.05) 35%, #08080a 75%);
+    }
+
+    .gold-glow {
+      filter: drop-shadow(0 0 12px rgba(197, 160, 89, 0.35));
+    }
+
+    .crimson-pulse {
+      animation: pulseCrimson 4s infinite ease-in-out;
+    }
+
+    @keyframes pulseCrimson {
+      0%, 100% { opacity: 0.35; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.03); }
+    }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .float-emblem {
+      animation: floatSlow 6s ease-in-out infinite;
+    }
+
+    .shake {
+      animation: shakeAnim 0.4s cubic-bezier(.36,.07,.19,.97) both;
+    }
+
+    @keyframes shakeAnim {
+      10%, 90% { transform: translate3d(-2px, 0, 0); }
+      20%, 80% { transform: translate3d(4px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+      40%, 60% { transform: translate3d(6px, 0, 0); }
+    }
+
+    /* 스크롤바 커스텀 */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #08080a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #27272a;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #c5a059;
+    }
+  </style>
+</head>
+<body class="min-h-screen selection:bg-gold selection:text-obsidian">
+
+  <!-- =========================================================
+       1. 입장 제한 게이트 (PASSWORD GATE)
+  ========================================================== -->
+  <section id="gateScreen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-obsidian sacred-bg px-4 transition-all duration-1000">
+    <!-- 배경 원형 룬 링 -->
+    <div class="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
+      <div class="w-[340px] h-[340px] sm:w-[520px] sm:h-[520px] rounded-full border border-gold/10 crimson-pulse"></div>
+      <div class="absolute w-[260px] h-[260px] sm:w-[400px] sm:h-[400px] rounded-full border border-crimson/20"></div>
+    </div>
+
+    <div class="relative z-10 w-full max-w-md text-center space-y-6">
+      <!-- 2D 심볼 SVG (사용자 지정 엠블럼 기반 깔끔한 벡터 구현) -->
+      <div class="flex justify-center float-emblem">
+        <svg class="w-48 h-28 sm:w-56 sm:h-32 gold-glow" viewBox="0 0 320 170" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="ORDO OCTO Emblem">
+          <!-- 외곽 타원 궤도 (눈/나침반 궤도) -->
+          <path d="M46 116C22 103 18 74 44 52C75 26 142 14 218 22C242 24.5 256 30 250 34C244 38 214 34 182 37C120 43 68 68 74 96C77 109 86 117 82 121C77 125 60 123 46 116Z" fill="#c5a059"/>
+          <path d="M274 54C298 67 302 96 276 118C245 144 178 156 102 148C78 145.5 64 140 70 136C76 132 106 136 138 133C200 127 252 102 246 74C243 61 234 53 238 49C243 45 260 47 274 54Z" fill="#c5a059"/>
+          <!-- 중앙 교차 'A' / 모래시계 심볼 -->
+          <path d="M160 36C125 46 105 70 112 96C116 111 128 122 142 128C131 115 127 98 133 81C139 63 155 50 175 45C170 41 165 38 160 36Z" fill="#e5c580"/>
+          <path d="M160 134C195 124 215 100 208 74C204 59 192 48 178 42C189 55 193 72 187 89C181 107 165 120 145 125C150 129 155 132 160 134Z" fill="#e5c580"/>
+          <!-- 중앙 수평 바 -->
+          <path d="M124 79H198L192 91H118L124 79Z" fill="#c5a059"/>
+        </svg>
+      </div>
+
+      <div class="space-y-2">
+        <p class="font-cinzel text-xs sm:text-sm tracking-[0.35em] text-gold/80 uppercase">Octo Faciunt Unum Turmam</p>
+        <h1 class="font-cinzel text-2xl sm:text-3xl font-bold tracking-[0.18em] text-white">ORDO OCTO</h1>
+        <p class="text-xs sm:text-sm text-zinc-400">선택받은 항해자만이 성소의 문을 열 수 있습니다.</p>
+      </div>
+
+      <!-- 비밀번호 입력 폼 -->
+      <form id="gateForm" class="space-y-4 pt-2">
+        <div id="inputWrapper" class="relative">
+          <input
+            type="password"
+            id="secretCodeInput"
+            placeholder="성소의 암호를 입력하십시오"
+            autocomplete="off"
+            class="w-full rounded-lg border border-gold/30 bg-charcoal/90 px-4 py-3.5 text-center font-cinzel text-sm sm:text-base tracking-[0.25em] text-goldLight placeholder-zinc-600 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition"
+          />
+        </div>
+
+        <p id="gateError" class="hidden text-xs text-red-400 tracking-wide">
+          암호가 일치하지 않습니다. 크로머가 당신을 거부합니다.
+        </p>
+
+        <button
+          type="submit"
+          class="w-full rounded-lg border border-gold/60 bg-gradient-to-r from-crimson/80 via-crimson to-crimson/80 py-3.5 font-cinzel text-sm font-semibold tracking-[0.25em] text-white shadow-lg shadow-crimson/20 hover:border-gold hover:brightness-110 active:scale-[0.99] transition cursor-pointer"
+        >
+          성소 입장 (ENTER SANCTUARY)
+        </button>
+      </form>
+
+      <!-- 암호 힌트 토글 -->
+      <div class="pt-2">
+        <button
+          type="button"
+          id="hintToggleBtn"
+          class="text-xs text-zinc-500 hover:text-gold transition underline underline-offset-4 cursor-pointer"
+        >
+          암호의 계시 확인하기
+        </button>
+        <div id="hintBox" class="hidden mt-3 rounded-lg border border-zinc-800 bg-charcoal/80 p-3 text-xs text-zinc-400 space-y-1">
+          <p class="text-gold/90 font-semibold">[교단 문지기의 속삭임]</p>
+          <p>8명이 하나의 팀을 이룬다는 영문 구호 또는 데뷔 기념일 4자리</p>
+          <p class="font-cinzel text-zinc-300 pt-1">CODE: <span class="text-gold">8MAKES1TEAM</span> 또는 <span class="text-gold">1024</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       2. 메인 성소 화면 (MAIN SANCTUARY)
+  ========================================================== -->
+  <div id="mainSanctuary" class="hidden opacity-0 transition-opacity duration-1000 min-h-screen flex flex-col">
+    
+    <!-- 상단 네비게이션 -->
+    <header class="sticky top-0 z-40 border-b border-gold/15 bg-obsidian/90 backdrop-blur-md">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+        <a href="#top" class="flex items-center gap-3 group">
+          <svg class="w-10 h-6 transition-transform group-hover:scale-105" viewBox="0 0 320 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M46 116C22 103 18 74 44 52C75 26 142 14 218 22C242 24.5 256 30 250 34C244 38 214 34 182 37C120 43 68 68 74 96C77 109 86 117 82 121C77 125 60 123 46 116Z" fill="#c5a059"/>
+            <path d="M274 54C298 67 302 96 276 118C245 144 178 156 102 148C78 145.5 64 140 70 136C76 132 106 136 138 133C200 127 252 102 246 74C243 61 234 53 238 49C243 45 260 47 274 54Z" fill="#c5a059"/>
+            <path d="M160 36C125 46 105 70 112 96C116 111 128 122 142 128C131 115 127 98 133 81C139 63 155 50 175 45C170 41 165 38 160 36Z" fill="#e5c580"/>
+            <path d="M160 134C195 124 215 100 208 74C204 59 192 48 178 42C189 55 193 72 187 89C181 107 165 120 145 125C150 129 155 132 160 134Z" fill="#e5c580"/>
+            <path d="M124 79H198L192 91H118L124 79Z" fill="#c5a059"/>
+          </svg>
+          <span class="font-cinzel text-sm sm:text-base font-bold tracking-[0.2em] text-gold">ORDO OCTO</span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-7 text-xs tracking-widest text-zinc-300">
+          <a href="#doctrine" class="hover:text-gold transition">교리 (DOCTRINE)</a>
+          <a href="#relics" class="hover:text-gold transition">성물·크로머 (RELICS)</a>
+          <a href="#apostles" class="hover:text-gold transition">8인의 사도 (APOSTLES)</a>
+          <a href="#ritual" class="hover:text-gold transition">서약 의식 (OATH)</a>
+        </nav>
+
+        <button
+          id="lockGateBtn"
+          class="rounded border border-zinc-700 px-3 py-1.5 text-[11px] text-zinc-400 hover:border-gold hover:text-gold transition cursor-pointer"
+          title="성소 문 잠그기"
+        >
+          봉인하기
+        </button>
+      </div>
+    </header>
+
+    <!-- 히어로 섹션 -->
+    <main id="top" class="flex-1">
+      <section class="relative overflow-hidden sacred-bg py-20 sm:py-28 px-4 text-center border-b border-gold/10">
+        <div class="mx-auto max-w-3xl space-y-6">
+          <div class="inline-block rounded-full border border-gold/30 bg-charcoal/70 px-4 py-1 text-[11px] font-cinzel tracking-[0.3em] text-gold">
+            ANNO DOMINI · DIMENSION Z
+          </div>
+
+          <!-- 대형 2D 블랙/골드 엠블럼 -->
+          <div class="flex justify-center py-2">
+            <div class="rounded-2xl border border-gold/20 bg-charcoal/50 p-6 sm:p-8 shadow-2xl">
+              <svg class="w-56 h-32 sm:w-72 sm:h-40 gold-glow" viewBox="0 0 320 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M46 116C22 103 18 74 44 52C75 26 142 14 218 22C242 24.5 256 30 250 34C244 38 214 34 182 37C120 43 68 68 74 96C77 109 86 117 82 121C77 125 60 123 46 116Z" fill="#c5a059"/>
+                <path d="M274 54C298 67 302 96 276 118C245 144 178 156 102 148C78 145.5 64 140 70 136C76 132 106 136 138 133C200 127 252 102 246 74C243 61 234 53 238 49C243 45 260 47 274 54Z" fill="#c5a059"/>
+                <path d="M160 36C125 46 105 70 112 96C116 111 128 122 142 128C131 115 127 98 133 81C139 63 155 50 175 45C170 41 165 38 160 36Z" fill="#ffffff"/>
+                <path d="M160 134C195 124 215 100 208 74C204 59 192 48 178 42C189 55 193 72 187 89C181 107 165 120 145 125C150 129 155 132 160 134Z" fill="#ffffff"/>
+                <path d="M124 79H198L192 91H118L124 79Z" fill="#c5a059"/>
+              </svg>
+            </div>
+          </div>
+
+          <h2 class="text-3xl sm:text-5xl font-bold tracking-wider text-white leading-tight">
+            제8항해 교단
+            <span class="block font-cinzel text-lg sm:text-2xl font-normal tracking-[0.25em] text-gold mt-2">
+              ORDO OCTO NAVIGATORUM
+            </span>
+          </h2>
+
+          <p class="mx-auto max-w-xl text-sm sm:text-base text-zinc-400 leading-relaxed">
+            감정이 통제된 회색의 땅 스트릭트랜드(Strictland)를 넘어, 
+            잃어버린 열정과 자유의 불꽃을 깨우는 여덟 항해자의 비밀 성소에 오신 것을 환영합니다.
+          </p>
+        </div>
+      </section>
+
+      <!-- 교리 섹션 (DOCTRINE) -->
+      <section id="doctrine" class="mx-auto max-w-6xl px-4 py-16 sm:py-20 sm:px-6 border-b border-zinc-900">
+        <div class="text-center mb-12 space-y-2">
+          <p class="font-cinzel text-xs tracking-[0.3em] text-gold">SACRED TENETS</p>
+          <h3 class="text-2xl sm:text-3xl font-bold text-white">교단의 3대 성율</h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="rounded-xl border border-gold/20 bg-charcoal/60 p-6 space-y-3 hover:border-gold/50 transition">
+            <div class="font-cinzel text-xs text-gold tracking-widest">I. UNITAS</div>
+            <h4 class="text-lg font-bold text-white">여덟이 모여 하나를 이룬다</h4>
+            <p class="text-sm text-zinc-400 leading-relaxed">
+              개별의 파편은 거친 파도에 휩쓸리나, 여덟 개의 나침반이 한 방향을 가리킬 때 비로소 미지의 보물섬에 도달한다.
+            </p>
+          </div>
+
+          <div class="rounded-xl border border-gold/20 bg-charcoal/60 p-6 space-y-3 hover:border-gold/50 transition">
+            <div class="font-cinzel text-xs text-gold tracking-widest">II. VIGILANTIA</div>
+            <h4 class="text-lg font-bold text-white">감정의 각성과 해방</h4>
+            <p class="text-sm text-zinc-400 leading-relaxed">
+              억압된 침묵과 무채색의 질서를 거부하라. 심장을 뛰게 하는 음악과 춤은 곧 영혼을 깨우는 성스러운 의식이다.
+            </p>
+          </div>
+
+          <div class="rounded-xl border border-gold/20 bg-charcoal/60 p-6 space-y-3 hover:border-gold/50 transition">
+            <div class="font-cinzel text-xs text-gold tracking-widest">III. CROMER</div>
+            <h4 class="text-lg font-bold text-white">차원을 잇는 모래시계</h4>
+            <p class="text-sm text-zinc-400 leading-relaxed">
+              달의 위상이 차오를 때 크로머를 뒤집어라. 시공의 경계를 넘어 또 다른 세계의 자아와 조우할 것이다.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 성물 섹션 (RELICS) -->
+      <section id="relics" class="mx-auto max-w-6xl px-4 py-16 sm:py-20 sm:px-6 border-b border-zinc-900">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <div class="space-y-4">
+            <p class="font-cinzel text-xs tracking-[0.3em] text-gold">SACRED RELIC</p>
+            <h3 class="text-2xl sm:text-3xl font-bold text-white">성물 : 크로머 (THE CROMER)</h3>
+            <p class="text-sm sm:text-base text-zinc-400 leading-relaxed">
+              교단 엠블럼의 중심을 관통하는 기하학적 교차선은 차원의 문 열쇠인 <span class="text-gold">크로머(Cromer)</span>를 상징합니다. 
+              외곽을 감싸는 두 개의 궤도는 서로 다른 차원(A와 Z)이 맞물려 순환하는 영원의 고리를 뜻합니다.
+            </p>
+            <div class="grid grid-cols-2 gap-4 pt-2">
+              <div class="rounded-lg border border-zinc-800 bg-charcoal p-4">
+                <p class="text-xs text-zinc-500">성물 등급</p>
+                <p class="text-sm font-semibold text-gold mt-1">제1급 차원 매개체</p>
+              </div>
+              <div class="rounded-lg border border-zinc-800 bg-charcoal p-4">
+                <p class="text-xs text-zinc-500">공명 조건</p>
+                <p class="text-sm font-semibold text-gold mt-1">만월(Full Moon) & 서약</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-gold/20 bg-gradient-to-b from-charcoal to-obsidian p-8 text-center space-y-4">
+            <div class="mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-gold/40 bg-obsidian shadow-inner">
+              <span class="font-cinzel text-2xl font-bold text-gold">8 : 1</span>
+            </div>
+            <p class="font-cinzel text-sm tracking-[0.25em] text-goldLight">SIGNUM VERITATIS</p>
+            <p class="text-xs text-zinc-400 max-w-sm mx-auto leading-relaxed">
+              "이 인장을 지닌 자는 폭풍 속에서도 길을 잃지 않으며, 검은 페도라의 그림자 아래 보호받으리라."
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8인의 사도 (THE 8 APOSTLES) -->
+      <section id="apostles" class="mx-auto max-w-6xl px-4 py-16 sm:py-20 sm:px-6 border-b border-zinc-900">
+        <div class="text-center mb-12 space-y-2">
+          <p class="font-cinzel text-xs tracking-[0.3em] text-gold">THE EIGHT APOSTLES</p>
+          <h3 class="text-2xl sm:text-3xl font-bold text-white">성소를 이끄는 8인의 사도</h3>
+          <p class="text-xs sm:text-sm text-zinc-400">각 사도를 선택하여 수호 권능을 확인하십시오.</p>
+        </div>
+
+        <div id="apostleGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <!-- JS로 렌더링 -->
+        </div>
+
+        <!-- 선택된 사도 상세 패널 -->
+        <div id="apostleDetail" class="mt-6 rounded-xl border border-gold/30 bg-charcoal/80 p-6 text-center space-y-2 transition-all">
+          <p id="detailTitle" class="font-cinzel text-xs tracking-[0.25em] text-gold">CAPTAIN OF THE VOYAGE</p>
+          <h4 id="detailName" class="text-xl font-bold text-white">제1사도 · 홍중 (HONGJOONG)</h4>
+          <p id="detailDesc" class="text-sm text-zinc-300 max-w-xl mx-auto">
+            항해의 나침반을 쥔 선도자. 혼돈의 바다에서 교단의 진로를 설계하고 불꽃의 선율을 지휘한다.
+          </p>
+        </div>
+      </section>
+
+      <!-- 입단 서약 의식 (INTERACTIVE RITUAL) -->
+      <section id="ritual" class="mx-auto max-w-3xl px-4 py-16 sm:py-24 sm:px-6 text-center">
+        <div class="rounded-2xl border border-gold/30 bg-charcoal/70 p-6 sm:p-10 space-y-6 shadow-2xl">
+          <div class="space-y-2">
+            <p class="font-cinzel text-xs tracking-[0.3em] text-gold">INITIATION RITUAL</p>
+            <h3 class="text-2xl sm:text-3xl font-bold text-white">신도 서약 및 인장 발급</h3>
+            <p class="text-xs sm:text-sm text-zinc-400">
+              당신의 세례명(닉네임)을 새기고 제8항해 교단의 일원임을 서약하십시오.
+            </p>
+          </div>
+
+          <div class="max-w-md mx-auto space-y-4">
+            <input
+              type="text"
+              id="initiateNameInput"
+              maxlength="20"
+              placeholder="서약자 이름 입력 (예: ATINY)"
+              class="w-full rounded-lg border border-zinc-700 bg-obsidian px-4 py-3 text-center text-sm text-white placeholder-zinc-600 focus:border-gold focus:outline-none"
+            />
+            <button
+              type="button"
+              id="oathBtn"
+              class="w-full rounded-lg border border-gold bg-gold/10 py-3 font-cinzel text-xs sm:text-sm font-bold tracking-[0.2em] text-gold hover:bg-gold hover:text-obsidian transition cursor-pointer"
+            >
+              크로머에 서약하기 (SEAL OATH)
+            </button>
+          </div>
+
+          <!-- 발급된 디지털 신도 인장 카드 -->
+          <div id="sealCard" class="hidden mx-auto max-w-md rounded-xl border border-gold/50 bg-obsidian p-6 text-center space-y-4 shadow-lg">
+            <div class="flex justify-center">
+              <svg class="w-28 h-16" viewBox="0 0 320 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M46 116C22 103 18 74 44 52C75 26 142 14 218 22C242 24.5 256 30 250 34C244 38 214 34 182 37C120 43 68 68 74 96C77 109 86 117 82 121C77 125 60 123 46 116Z" fill="#c5a059"/>
+                <path d="M274 54C298 67 302 96 276 118C245 144 178 156 102 148C78 145.5 64 140 70 136C76 132 106 136 138 133C200 127 252 102 246 74C243 61 234 53 238 49C243 45 260 47 274 54Z" fill="#c5a059"/>
+                <path d="M160 36C125 46 105 70 112 96C116 111 128 122 142 128C131 115 127 98 133 81C139 63 155 50 175 45C170 41 165 38 160 36Z" fill="#ffffff"/>
+                <path d="M160 134C195 124 215 100 208 74C204 59 192 48 178 42C189 55 193 72 187 89C181 107 165 120 145 125C150 129 155 132 160 134Z" fill="#ffffff"/>
+                <path d="M124 79H198L192 91H118L124 79Z" fill="#c5a059"/>
+              </svg>
+            </div>
+            <div class="space-y-1">
+              <p class="font-cinzel text-[11px] tracking-[0.3em] text-gold">OFFICIAL INITIATE SEAL</p>
+              <h4 id="sealedUserName" class="text-xl font-bold text-white">ATINY</h4>
+              <p id="sealedSerial" class="font-cinzel text-xs text-zinc-400">NO. OCTO-1024</p>
+            </div>
+            <p class="text-xs text-zinc-400 border-t border-zinc-800 pt-3">
+              "8 MAKES 1 TEAM — 그대의 영혼은 이제 제8항해 교단과 함께한다."
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="border-t border-zinc-900 bg-obsidian py-8 px-4 text-center text-xs text-zinc-500 space-y-1">
+      <p class="font-cinzel tracking-[0.2em] text-gold/70">ORDO OCTO · OCTO FACIUNT UNUM TURMAM</p>
+      <p>본 사이트는 에이티즈(ATEEZ) 세계관을 모티프로 제작된 가상 팬덤 콘셉트 페이지입니다.</p>
+    </footer>
+  </div>
+
+  <script>
+    // 허용된 비밀번호 목록 (원하는 대로 수정 가능)
+    const VALID_PASSWORDS = ['8MAKES1TEAM', '1024', 'ATEEZ'];
+
+    const gateScreen = document.getElementById('gateScreen');
+    const mainSanctuary = document.getElementById('mainSanctuary');
+    const gateForm = document.getElementById('gateForm');
+    const secretCodeInput = document.getElementById('secretCodeInput');
+    const inputWrapper = document.getElementById('inputWrapper');
+    const gateError = document.getElementById('gateError');
+    const hintToggleBtn = document.getElementById('hintToggleBtn');
+    const hintBox = document.getElementById('hintBox');
+    const lockGateBtn = document.getElementById('lockGateBtn');
+
+    // 힌트 토글
+    hintToggleBtn.addEventListener('click', () => {
+      hintBox.classList.toggle('hidden');
+    });
+
+    // 성소 잠금 해제 함수
+    function unlockSanctuary() {
+      sessionStorage.setItem('ordo_octo_unlocked', 'true');
+      gateScreen.classList.add('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        gateScreen.classList.add('hidden');
+        mainSanctuary.classList.remove('hidden');
+        requestAnimationFrame(() => {
+          mainSanctuary.classList.remove('opacity-0');
+        });
+      }, 700);
+    }
+
+    // 성소 다시 잠그기
+    lockGateBtn.addEventListener('click', () => {
+      sessionStorage.removeItem('ordo_octo_unlocked');
+      secretCodeInput.value = '';
+      gateError.classList.add('hidden');
+      mainSanctuary.classList.add('opacity-0');
+      setTimeout(() => {
+        mainSanctuary.classList.add('hidden');
+        gateScreen.classList.remove('hidden');
+        requestAnimationFrame(() => {
+          gateScreen.classList.remove('opacity-0', 'pointer-events-none');
+        });
+      }, 500);
+    });
+
+    // 비밀번호 검증
+    gateForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const entered = secretCodeInput.value.trim().toUpperCase();
+      if (VALID_PASSWORDS.includes(entered)) {
+        gateError.classList.add('hidden');
+        unlockSanctuary();
+      } else {
+        gateError.classList.remove('hidden');
+        inputWrapper.classList.remove('shake');
+        void inputWrapper.offsetWidth;
+        inputWrapper.classList.add('shake');
+        secretCodeInput.focus();
+      }
+    });
+
+    // 세션 유지 확인
+    if (sessionStorage.getItem('ordo_octo_unlocked') === 'true') {
+      gateScreen.classList.add('hidden');
+      mainSanctuary.classList.remove('hidden', 'opacity-0');
+    }
+
+    // 8인의 사도 데이터
+    const apostles = [
+      {
+        num: 'I',
+        name: '홍중 (HONGJOONG)',
+        role: 'CAPTAIN OF THE VOYAGE',
+        desc: '항해의 나침반을 쥔 선도자. 혼돈의 바다에서 교단의 진로를 설계하고 불꽃의 선율을 지휘한다.'
+      },
+      {
+        num: 'II',
+        name: '성화 (SEONGHWA)',
+        role: 'KEEPER OF THE STARLIGHT',
+        desc: '별빛을 수호하는 정화의 사도. 어둠 속에서도 흔들리지 않는 우아함으로 신도들의 영혼을 비춘다.'
+      },
+      {
+        num: 'III',
+        name: '윤호 (YUNHO)',
+        role: 'VANGUARD OF DAWN',
+        desc: '여명을 여는 수호기사. 지치지 않는 에너지와 단단한 신념으로 교단의 최전선을 돌파한다.'
+      },
+      {
+        num: 'IV',
+        name: '여상 (YEOSANG)',
+        role: 'GUARDIAN OF THE CROMER',
+        desc: '차원 모래시계의 수호자. 고요한 통찰력으로 진실과 환상을 가려내며 성물의 균형을 유지한다.'
+      },
+      {
+        num: 'V',
+        name: '산 (SAN)',
+        role: 'FLAME OF DEVOTION',
+        desc: '격렬한 헌신의 화신. 무대 위의 빙의와 같은 몰입으로 잠든 감각을 일깨우는 의식의 집행자.'
+      },
+      {
+        num: 'VI',
+        name: '민기 (MINGI)',
+        role: 'HERALD OF THUNDER',
+        desc: '천둥의 포효를 전하는 전령. 묵직한 울림으로 스트릭트랜드의 견고한 성벽을 뒤흔든다.'
+      },
+      {
+        num: 'VII',
+        name: '우영 (WOOYOUNG)',
+        role: 'DANCER OF LIBERATION',
+        desc: '해방의 춤을 추는 자유인. 모든 구속을 비웃듯 경계를 허물고 새로운 세계의 문을 연다.'
+      },
+      {
+        num: 'VIII',
+        name: '종호 (JONGHO)',
+        role: 'VOICE OF ETERNITY',
+        desc: '영원을 울리는 성가의 주인. 하늘을 가르는 고음으로 차원의 균열을 깨뜨리고 승리를 선포한다.'
+      }
+    ];
+
+    const apostleGrid = document.getElementById('apostleGrid');
+    const detailTitle = document.getElementById('detailTitle');
+    const detailName = document.getElementById('detailName');
+    const detailDesc = document.getElementById('detailDesc');
+
+    apostles.forEach((ap, idx) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `apostle-card rounded-xl border ${idx === 0 ? 'border-gold bg-gold/10' : 'border-zinc-800 bg-charcoal/50'} p-4 text-center hover:border-gold/60 transition cursor-pointer`;
+      btn.innerHTML = `
+        <div class="font-cinzel text-xs text-gold mb-1">APOSTLE ${ap.num}</div>
+        <div class="text-sm font-bold text-white">${ap.name.split(' ')[0]}</div>
+      `;
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.apostle-card').forEach(el => {
+          el.classList.remove('border-gold', 'bg-gold/10');
+          el.classList.add('border-zinc-800', 'bg-charcoal/50');
+        });
+        btn.classList.remove('border-zinc-800', 'bg-charcoal/50');
+        btn.classList.add('border-gold', 'bg-gold/10');
+
+        detailTitle.textContent = ap.role;
+        detailName.textContent = `제${idx + 1}사도 · ${ap.name}`;
+        detailDesc.textContent = ap.desc;
+      });
+      apostleGrid.appendChild(btn);
+    });
+
+    // 신도 서약서 발급 기능
+    const initiateNameInput = document.getElementById('initiateNameInput');
+    const oathBtn = document.getElementById('oathBtn');
+    const sealCard = document.getElementById('sealCard');
+    const sealedUserName = document.getElementById('sealedUserName');
+    const sealedSerial = document.getElementById('sealedSerial');
+
+    oathBtn.addEventListener('click', () => {
+      const rawName = initiateNameInput.value.trim();
+      const finalName = rawName || '이름 없는 항해자 (ATINY)';
+      const randomNum = Math.floor(1000 + Math.random() * 9000);
+
+      sealedUserName.textContent = finalName;
+      sealedSerial.textContent = `SEAL NO. OCTO-${randomNum}`;
+      sealCard.classList.remove('hidden');
+      sealCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  </script>
+</body>
+</html>
